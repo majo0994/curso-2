@@ -16,6 +16,10 @@ body{
     font-family: 'Quicksand', sans-serif;
 }
 
+.inactive {
+    display: none;
+}
+
 .title {
     text-align: center;
     font-size: var(--lg);
@@ -262,15 +266,22 @@ body{
     cursor: pointer;
 }
 
-.menu-container {
+.menu-container-1 {
+    position: absolute;
+    right: 50px;
+    top: 39px;
+}
+
+.menu-container-2 {
     text-align: end;
-    width: 120px;
+    width: 110px;
     height: auto;
     border: 1px solid var(--very-light-pink);
     border-radius: 4px;
     list-style: none;
     padding: 15px;
     margin: 0;
+    background-color: var(--white);
 }
 
 .menu-mobile {
@@ -450,6 +461,7 @@ body{
 .email-nav{
     position: absolute;
     right: 60px;
+    cursor: pointer;
 }
 
 .icon-arrow {
@@ -492,7 +504,6 @@ body{
     position: absolute;
     right: 10px;
 }
-
 
 .product-img-detail {
     width: 290px;
@@ -571,13 +582,11 @@ body{
     border-radius: 16px;
 }
 
-
 .img-cart-product {
     width: 100px;
     height: 100px;
     border-radius: 16px;
 }
-
 
 .close-1{
     width: 20px;

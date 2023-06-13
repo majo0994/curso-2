@@ -618,6 +618,12 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,visualstudio,visualstudiocode
 
 #imagenes
-.assets
-.icons
-.logos
+assets
+icons
+logos
+"icons/"
+"logos/"
+"assets/"
+*.png
+*.jpg
+*.svg

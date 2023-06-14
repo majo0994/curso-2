@@ -277,6 +277,7 @@ body{
     display: grid;
     place-items: center;
     width: 350px;
+    padding: 10px;
     background-color: var(--white);
 }
 
@@ -369,7 +370,6 @@ body{
     align-items: flex-start;
     margin-top: 10px;
     margin-bottom: 10px;
-    cursor: pointer;
 }
 
 .image-product {
@@ -380,6 +380,7 @@ body{
     height: 240px;
     border-radius: 16px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .description-product{

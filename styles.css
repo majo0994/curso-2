@@ -414,7 +414,73 @@ body{
     object-fit: cover;
 }
 
-/**/
+/*Product detail*/
+
+.detail-product-card {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 100vh;
+    border-radius: 16px;
+    position: absolute;
+    right: 0;
+    background-color: var(--white);
+}
+
+.detail-product-card button {
+    position: absolute;
+    bottom: 60px;
+}
+
+.product-img-detail {
+    width: 350px;
+    height: 350px;
+    border-radius: 16px;
+}
+
+.close {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    background-color: var(--white);
+    border-radius: 10px;
+}
+
+.points{
+    display: flex;
+    justify-content: center;
+    color: var(--very-light-pink);
+}
+
+.points li{
+    width: 10px;
+    height: 20px;
+    text-align: center;
+}
+
+.points li:hover{
+    color: var(--hospital-green);
+}
+
+.close:hover {
+    background-color:  var(--hospital-green);
+}
+
+.description-product-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px;
+    height: 60px;
+}
+
+.description {
+    text-align: justify;
+    padding: 10px;
+}
 
 
 /*
@@ -572,64 +638,7 @@ body{
     margin: 0;
 }
 
-.detail-product-card {
-    display: flex;
-    flex-direction: column;
-    width: 290px;
-    height: 520px;
-    border-radius: 16px;
-    position: absolute;
-    right: 10px;
-}
 
-.product-img-detail {
-    width: 290px;
-    height: 290px;
-    border-radius: 16px;
-}
-
-.close {
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
-    background-color: var(--white);
-    border-radius: 10px;
-}
-
-.points{
-    display: flex;
-    justify-content: center;
-    color: var(--very-light-pink);
-}
-
-.points li{
-    width: 10px;
-    height: 20px;
-    text-align: center;
-}
-
-.points li:hover{
-    color: var(--hospital-green);
-}
-
-.close:hover {
-    background-color:  var(--hospital-green);
-}
-
-.description-product-detail {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 10px;
-}
-
-.description {
-    text-align: justify;
-    padding: 10px;
-}
 
 */
 
@@ -771,6 +780,8 @@ body{
         height: 138px;
         border-radius: 8px;
     }
+
+    /**/
 
 /*
     .logo {

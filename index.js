@@ -10,16 +10,13 @@ const shoppingCart = document.querySelector('.shopping-cart-2');
 
 const cardsContainers = document.querySelector('.cards-container')
 
-const imageProductClick = document.querySelector('.image-product')
-const closeIcon = document.querySelector('.close')
 const detailProductCard = document.querySelector('.detail-product-card')
 
 //addEventListener
+
 navEmail.addEventListener('click', toggleDesktopMenu)
 iconMobileMenu.addEventListener('click', toggleMobileMenu)
 iconCart.addEventListener('click', toggleCart)
-closeIcon.addEventListener('click', toggleClose)
-//imageProductClick.addEventListener('click', toggleClose)
 
 
 //Funciones menu
@@ -62,7 +59,7 @@ function toggleCart() {
     shoppingCart.classList.toggle('inactive');
 }
 
-function toggleClose() {
+function detailProductOpen() {
     let isMobileMenuOpen = !mobileMenu.classList.contains('inactive');
     let isDesktopMenuOpen = !desktopMenu.classList.contains('inactive');
     let isShoppingCartOpen = !shoppingCart.classList.contains('inactive');
@@ -74,14 +71,32 @@ function toggleClose() {
         shoppingCart.classList.add('inactive');
     }
 
-    detailProductCard.classList.toggle('inactive')
+    detailProductCard.classList.remove('inactive')
+    renderDetailProduct(productsList)
+}
+
+function detailProductClose() {
+    let isMobileMenuOpen = !mobileMenu.classList.contains('inactive');
+    let isDesktopMenuOpen = !desktopMenu.classList.contains('inactive');
+    let isShoppingCartOpen = !shoppingCart.classList.contains('inactive');
+
+
+    if (isDesktopMenuOpen || isMobileMenuOpen || isShoppingCartOpen) {
+        mobileMenu.classList.add('inactive');
+        desktopMenu.classList.add('inactive');
+        shoppingCart.classList.add('inactive');
+    }
+
+    detailProductCard.classList.add('inactive')
 }
 
 
  //Pagina de inicio y productos
  let productsList = []
+ let product
 
-function Products (image, name, price, category, description) {
+function Products (id, image, name, price, category, description) {
+        this.id = id;
         this.image = image;
         this.name = name;
         this.price = price;
@@ -90,6 +105,7 @@ function Products (image, name, price, category, description) {
 }
 
 let product1 = new Products(
+    'id1',
     './assets/mueble.jpg', 
     'Mueble de Madera', 
     130, 
@@ -98,6 +114,7 @@ let product1 = new Products(
     )
 
 let product2 = new Products(
+    'id2',
     './assets/peluche.jpg', 
     'Oso de Peluche', 
     60, 
@@ -106,6 +123,7 @@ let product2 = new Products(
     )
 
 let product3 = new Products(
+    'id3',
     './assets/camisa-hawaina.jpg', 
     'Camisa Hawaina', 
     35, 
@@ -114,6 +132,7 @@ let product3 = new Products(
     )
 
 let product4 = new Products(
+    'id4',
     './assets/iphone-14.jpg', 
     'Iphone 14', 
     1500, 
@@ -122,6 +141,7 @@ let product4 = new Products(
     )
 
 let product5 = new Products(
+    'id5',
     './assets/samsung-s23.jpg', 
     'Samsung S23 Ultra', 
     1450, 
@@ -130,6 +150,7 @@ let product5 = new Products(
     )
 
 let product6 = new Products(
+    'id6',
     './assets/laptop.jpg', 
     'Laptop acer', 
     800, 
@@ -138,6 +159,7 @@ let product6 = new Products(
     )
 
 let product7 = new Products(
+    'id7',
     './assets/vestido-negro.jpg',
     'Vestido Negro', 
     80, 
@@ -148,16 +170,16 @@ let product7 = new Products(
 productsList.push(product1, product2, product3, product4, product5, product6, product7)
 
 function pageProductsList(arr) {
-    let product
     
     for (product of arr) {
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
+        productCard.setAttribute('id', product.id);
 
         const imageProduct = document.createElement('img');
         imageProduct.classList.add('image-product');
         imageProduct.setAttribute('src', product.image);
-
+        imageProduct.addEventListener('click', detailProductOpen)
 
         const descriptionProduct = document.createElement('div');
         descriptionProduct.classList.add('description-product');
@@ -185,14 +207,62 @@ function pageProductsList(arr) {
         descriptionProduct.append(productPriceCard, productNameCard);
 
         shoppingCartAdd.appendChild(shoppingCartAddIcon);
-
     }
 }
-
 pageProductsList(productsList)
+
 
 //detail Product
 
+function renderDetailProduct (input) {
 
+        const closeIcon = document.createElement('img');
+        closeIcon.classList.add('close');
+        closeIcon.setAttribute('src', './icons/icon_close.png');
+        closeIcon.addEventListener('click', detailProductClose);
 
-window.addEventListener('load', toggleClose)
+        const productImgDetail = document.createElement('img');
+        productImgDetail.classList.add('product-img-detail');
+        productImgDetail.setAttribute('src', input.image);
+
+        const createDivPoints = document.createElement('div');
+        createDivPoints.classList.add('points');
+
+        const pointSelectionImg1 = document.createElement('li');
+        const pointSelectionImg2 = document.createElement('li');
+        const pointSelectionImg3 = document.createElement('li');
+
+        const descriptionProductDetail = document.createElement('div');
+        descriptionProductDetail.classList.add('description-product-detail');
+
+        const productPriceCard = document.createElement('p');
+        productPriceCard.classList.add('text-1');
+        productPriceCard.innerText = '$' + input.price;
+
+        const productNameCard = document.createElement('p');
+        productNameCard.classList.add('text-4');
+        productNameCard.innerText = input.name;
+
+        const descriptionText = document.createElement('p');
+        descriptionText.classList.add('text-4');
+        descriptionText.innerText = input.description;
+
+        const primaryButton = document.createElement('button');
+        primaryButton.classList.add('primary-button');
+
+        const cartIcon = document.createElement('img');
+        cartIcon.classList.add('icon-cart');
+        cartIcon.setAttribute('src', './icons/bt_add_to_cart.svg');
+        
+        const buttonDescription = document.createElement('p');
+        buttonDescription.innerText = 'Add to car';
+
+        detailProductCard.append(closeIcon, productImgDetail, createDivPoints, descriptionProductDetail, descriptionText, primaryButton)
+
+        createDivPoints.append(pointSelectionImg1, pointSelectionImg2, pointSelectionImg3)
+
+        descriptionProductDetail.append(productPriceCard, productNameCard)
+
+        primaryButton.append(cartIcon, buttonDescription)
+
+}

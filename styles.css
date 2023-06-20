@@ -384,6 +384,14 @@ body{
     margin-bottom: 10px;
 }
 
+.product-card input{
+    display: none;
+}
+
+.product-card input:checked{
+    background-color: var(--hospital-green);
+
+}
 .image-product {
     display: grid;
     grid-column-start: 1;
@@ -451,6 +459,7 @@ body{
     width: 350px;
     height: 350px;
     border-radius: 16px;
+    object-fit: cover;
 }
 
 .close {

@@ -7,6 +7,9 @@ const mobileMenu = document.querySelector('.menu-mobile');
 
 const iconCart = document.querySelector('.shopping-cart');
 const shoppingCart = document.querySelector('.shopping-cart-2');
+const cartListItems = document.querySelector('.list-items')
+const articlesCart = document.querySelector('.articles-cart')
+const totalPriceItemsCart = document.querySelector('.total-cart-price')
 
 const cardsContainers = document.querySelector('.cards-container')
 
@@ -77,8 +80,7 @@ function detailProductClose() {
 
 //Pagina de inicio y productos
 let productsList = [];
-
-const productCards = Array.from(document.querySelectorAll('.product-card'));
+let productsListCart = [];
 
 function Products (id, image, name, price, category, description) {
         this.id = id;
@@ -186,6 +188,7 @@ function pageProductsList(arr) {
 
         const shoppingCartAddIcon = document.createElement('img');
         shoppingCartAddIcon.setAttribute('src', './icons/bt_add_to_cart.svg');
+        shoppingCartAddIcon.addEventListener('click', function() {addItemsCart(product)})
 
         cardsContainers.appendChild(productCard)
 
@@ -249,8 +252,9 @@ function renderProductDetail(product) {
     descriptionText.classList.add('text-4');
     descriptionText.innerText = product.description;
 
-    const primaryButton = document.createElement('button');
-    primaryButton.classList.add('primary-button');
+    const primaryButtonAddCart = document.createElement('button');
+    primaryButtonAddCart.classList.add('primary-button');
+    primaryButtonAddCart.addEventListener('click', function() {addItemsCart(product)})
 
     const cartIcon = document.createElement('img');
     cartIcon.classList.add('icon-cart');
@@ -259,13 +263,80 @@ function renderProductDetail(product) {
     const buttonDescription = document.createElement('p');
     buttonDescription.innerText = 'Add to car';
 
-    detailProductCard.append(closeIcon, productImgDetail, createDivPoints, descriptionProductDetail, descriptionText, primaryButton)
+    detailProductCard.append(closeIcon, productImgDetail, createDivPoints, descriptionProductDetail, descriptionText, primaryButtonAddCart)
 
     createDivPoints.append(pointSelectionImg1, pointSelectionImg2, pointSelectionImg3)
 
     descriptionProductDetail.append(productPriceCard, productNameCard)
 
-    primaryButton.append(cartIcon, buttonDescription)
+    primaryButtonAddCart.append(cartIcon, buttonDescription)
 }
 
 //agregar cosas al carrito
+
+function renderProductCart() {
+
+    cartListItems.innerHTML = ''
+
+    for(let i = 0; i < productsListCart.length; i++){
+        let product = productsListCart[i];
+
+        const productCartAbstract = document.createElement('li');
+        productCartAbstract.classList.add('product-cart-abstract');
+
+        const imgCartProduct = document.createElement('img');
+        imgCartProduct.classList.add('img-cart-product');
+        imgCartProduct.setAttribute('src', product.image);
+        imgCartProduct.addEventListener('click', function() {renderProductDetail(product)});
+
+        const nameItemCart = document.createElement('p');
+        nameItemCart.classList.add('text-4');
+        nameItemCart.innerText = product.name;
+
+        const priceItemCart = document.createElement('p');
+        priceItemCart.classList.add('text-1');
+        priceItemCart.innerText = '$' + product.price;
+
+        const closeIconCart = document.createElement('img');
+        closeIconCart.classList.add('close-1');
+        closeIconCart.setAttribute('src', './icons/icon_close.png');
+        closeIconCart.addEventListener('click', function() {deleteItemsCart(product)});
+
+
+        cartListItems.appendChild(productCartAbstract)
+        productCartAbstract.append(imgCartProduct, nameItemCart, priceItemCart, closeIconCart)
+    }
+}
+
+function addItemsCart(product) {
+    productsListCart.push(product);
+    renderProductCart(product);
+    totalItemsCart();
+    totalPriceCart(product);
+}
+
+function deleteItemsCart(product) {
+    productsListCart.pop(product);
+    renderProductCart(product);
+    totalItemsCart();
+    totalPriceCart(product);
+}
+
+function totalPriceCart(product) {
+
+    let sumPrice = 0;
+
+    for (let i = 0; i < productsListCart.length; i++) {
+        sumPrice += productsListCart[i].price;
+        
+    }
+
+    totalPriceItemsCart.innerText = '$' + sumPrice;
+}
+
+function totalItemsCart() {
+  
+
+    articlesCart.innerText = productsListCart.length;
+
+}

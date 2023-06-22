@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rpeuba</title>
+</head>
+<body>
+    <ul id="barra-navegacion">
+        <li><a href="#" data-categoria="A">Categoría A</a></li>
+        <li><a href="#" data-categoria="B">Categoría B</a></li>
+        <li><a href="#" data-categoria="C">Categoría C</a></li>
+      </ul>
+      
+      <div id="lista-productos">
+        <!-- aquí se mostrarán los productos filtrados -->
+      </div>
+
+      <script>
+        var productos = [
+  {nombre: 'Producto 1', categoria: 'A'},
+  {nombre: 'Producto 2', categoria: 'B'},
+  {nombre: 'Producto 3', categoria: 'A'}
+];
+
+function filtrarPorCategoria(array, categoria) {
+  return array.filter(function(producto) {
+    return producto.categoria === categoria;
+  });
+}
+
+var barraNavegacion = document.getElementById('barra-navegacion');
+var listaProductos = document.getElementById('lista-productos');
+
+barraNavegacion.addEventListener('click', function(event) {
+  if (event.target.tagName === 'A') {
+    event.preventDefault();
+    var categoria = event.target.dataset.categoria;
+    var productosFiltrados = filtrarPorCategoria(productos, categoria);
+    mostrarProductos(productosFiltrados);
+  }
+});
+
+function mostrarProductos(array) {
+  listaProductos.innerHTML = '';
+  for (var i = 0; i < array.length; i++) {
+    var producto = array[i];
+    var li = document.createElement('li');
+    li.textContent = producto.nombre;
+    listaProductos.appendChild(li);
+  }
+}
+      </script>
+</body>
+</html>

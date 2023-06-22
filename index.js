@@ -1,4 +1,5 @@
 //variables
+const navbarLeft= document.querySelector('.navbar-left')
 const navEmail = document.querySelector('.email-nav-container');
 const desktopMenu = document.querySelector('.menu-desktop');
 
@@ -81,6 +82,9 @@ function detailProductClose() {
 //Pagina de inicio y productos
 let productsList = [];
 let productsListCart = [];
+let categoria
+let prueba = []
+
 
 function Products (id, image, name, price, category, description) {
         this.id = id;
@@ -160,12 +164,11 @@ productsList.push(product1, product2, product3, product4, product5, product6, pr
 
 function pageProductsList(arr) {
 
-    for(let i = 0; i < productsList.length; i++){
-        let product = productsList[i];
+    for(let i = 0; i < arr.length; i++){
+        let product = arr[i];
 
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
-        productCard.setAttribute('index', arr.indexOf(product));
 
         const imageProduct = document.createElement('img');
         imageProduct.classList.add('image-product');
@@ -202,7 +205,7 @@ function pageProductsList(arr) {
 
 }
 
-pageProductsList(productsList)
+pageProductsList(productsList);
 
 //renderizado detalle de productos
 
@@ -322,7 +325,7 @@ function deleteItemsCart(product) {
     totalPriceCart(product);
 }
 
-function totalPriceCart(product) {
+function totalPriceCart() {
 
     let sumPrice = 0;
 
@@ -340,3 +343,37 @@ function totalItemsCart() {
     articlesCart.innerText = productsListCart.length;
 
 }
+
+//filtros de busqueda
+
+
+function categoryFilter(arr, category) {
+    return arr.filter(product => product.category === category);
+  }
+
+
+navbarLeft.addEventListener('click', function(event) {
+    cardsContainers.innerHTML = ''
+
+    if (event.target.tagName === 'A') {
+      event.preventDefault();
+      categoria = event.target.dataset.category;
+      prueba = categoryFilter(productsList, categoria);
+      console.log(categoria)
+      pageProductsList(prueba);
+      if(categoria === 'all') {
+        pageProductsList(productsList);
+      }
+    }
+        
+});
+
+/*navbarLeft.addEventListener('click', function(event) {
+    cardsContainers.innerHTML = ''
+
+    if (event.target.tagName === 'A') {
+      event.preventDefault();
+      categoria = 'all'
+      pageProductsList(productsList);
+    } 
+});*/
